@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="tagname.json" />
+    <None Include="div.js" />
+    <Compile Include="FileVersion.fs" />
+    <Compile Include="gentags.fs" />
+    <Compile Include="hyperscript.fs" />
+    <Compile Include="node_modules.fs" />
+    <Compile Include="WorkingwithTypes.fs" />
+    <Compile Include="regular.fs" />
+    <Compile Include="ReflectionatRunTime.fs" />
+    <Compile Include="NormFsharp.fs" />
+    <Compile Include="ActionSequence.fs" />
+    <Compile Include="tidy.fs" />
+    <Compile Include="ThePathType.fs" />
+    <Compile Include="U200B.fs" />
+    <Compile Include="CommonMark.fs" />
+    <Compile Include="vb2fs.fs" />
+    <Compile Include="bitwise.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Markdown\Markdown.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
+  </ItemGroup>
+
+</Project>

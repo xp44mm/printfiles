@@ -1,0 +1,195 @@
+﻿{
+  "html elements reference": "developer.mozilla.org/en-us/docs/web/html/element",
+  "main root": {
+    "exclude": [
+      "html"
+    ]
+  },
+  "document metadata": {
+    "exclude": [
+      "base",
+      "head",
+      "link",
+      "meta",
+      "style",
+      "title"
+    ]
+  },
+  "sectioning root": {
+    "exclude": [
+      "body"
+    ]
+  },
+  "content sectioning": [
+    "address",
+    "article",
+    "aside",
+    "footer",
+    "header",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "hgroup",
+    "main",
+    "nav",
+    "section"
+  ],
+  "text content": [
+    "blockquote",
+    "dd",
+    "div",
+    "dl",
+    "dt",
+    "figcaption",
+    "figure",
+    "hr",
+    "li",
+    "ol",
+    "p",
+    "pre",
+    "ul"
+  ],
+  "inline text semantics": [
+    "a",
+    "abbr",
+    "b",
+    "bdi",
+    "bdo",
+    "br",
+    "cite",
+    "code",
+    "data",
+    "dfn",
+    "em",
+    "i",
+    "kbd",
+    "mark",
+    "q",
+    "rb",
+    "rp",
+    "rt",
+    "rtc",
+    "ruby",
+    "s",
+    "samp",
+    "small",
+    "span",
+    "strong",
+    "sub",
+    "sup",
+    "time",
+    "tt",
+    "u",
+    //"var",
+    "wbr"
+  ],
+  "image and multimedia": [
+    "area",
+    "audio",
+    "img",
+    //"map",
+    "track",
+    "video"
+  ],
+  "embedded content": {
+    "exclude": [
+      "applet",
+      "embed",
+      "iframe",
+      "noembed",
+      "object",
+      "param",
+      "picture",
+      "source"
+    ]
+  },
+  "scripting": {
+    "exclude": [
+      "canvas",
+      "noscript",
+      "script"
+    ]
+  },
+  "demarcating edits": [
+    "del",
+    "ins"
+  ],
+  "table content": [
+    "caption",
+    "col",
+    "colgroup",
+    "table",
+    "tbody",
+    "td",
+    "tfoot",
+    "th",
+    "thead",
+    "tr"
+  ],
+  "forms": [
+    "button",
+    "datalist",
+    "fieldset",
+    "form",
+    "input",
+    "label",
+    "legend",
+    "meter",
+    "optgroup",
+    "option",
+    "output",
+    "progress",
+    "select",
+    "textarea"
+  ],
+  "interactive elements": [
+    "details",
+    "dialog",
+    "menu",
+    "menuitem",
+    "summary"
+  ],
+  "web components": {
+    "exclude": [
+      "content",
+      "element",
+      "shadow",
+      "slot",
+      "template"
+    ]
+  },
+  "obsolete and deprecated elements": {
+    "exclude": [
+      "acronym",
+      "basefont",
+      "bgsound",
+      "big",
+      "blink",
+      "center",
+      "command",
+      "dir",
+      "font",
+      "frame",
+      "frameset",
+      "image",
+      "isindex",
+      "keygen",
+      "listing",
+      "marquee",
+      "math",
+      "multicol",
+      "nextid",
+      "nobr",
+      "noframes",
+      "plaintext",
+      "rbc",
+      "spacer",
+      "strike",
+      "svg",
+      "xmp"
+    ]
+  }
+}
