@@ -8,6 +8,9 @@ open AngleSharp.Dom
 open System.Text.RegularExpressions
 open FSharp.Control.Tasks.V2
 open System.Net.Http
+open AngleSharp.Browser
+
+let ignoreMetaConfig = Configuration.Default.Without<EncodingMetaHandler>()
 
 ///獲取unicode網頁文本
 let getDocumentAsync(url:string) =
