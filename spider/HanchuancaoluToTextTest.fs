@@ -14,13 +14,12 @@ open AngleSharp
 open System.Text.RegularExpressions
 
 type HanchuancaoluToTextTest(output: ITestOutputHelper) =
-    let hanchuancaolu = @"C:\Users\cuishengli\source\repos\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"d:\source\repos\xp44mm\hanchuancaolu"
 
     /// get parsed document
     let parseFileAsync file =
         task {
-            let context = 
-                BrowsingContext.New(Configuration.Default)
+            let context = BrowsingContext.New(Configuration.Default)
             let! text = File.ReadAllTextAsync(file)
             let! document = context.OpenAsync(fun req -> req.Content(text) |> ignore)
             return document

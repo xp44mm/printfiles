@@ -13,10 +13,11 @@ open FSharp.Control.Tasks.V2
 open System.Threading.Tasks
 open AngleSharp.Browser
 open System.Reactive.Linq
+open AngleSharp.Html.Parser
 
 /// 少女之心(曼娜回忆录)
 type MannaTest(output: ITestOutputHelper) =
-    let root = @"C:\Users\cuishengli\source\repos\xp44mm\MemoriesOfGirl"
+    let root = @"d:\source\repos\xp44mm\MemoriesOfGirl"
 
     [<Fact>]
     member this. ``norm123456`` () =
@@ -37,7 +38,7 @@ type MannaTest(output: ITestOutputHelper) =
                 else
                     res.[res.Count-1].Add node
             )
-        
+
             res
             |> Array.ofSeq
             |> Array.filter(fun childNodes -> childNodes.Count > 0)
@@ -50,7 +51,7 @@ type MannaTest(output: ITestOutputHelper) =
                 )
                 wp
             )
-        
+
         let source = Path.Combine(root,"star")
         let targetDir = Path.Combine(root, "target")
 
@@ -69,11 +70,11 @@ type MannaTest(output: ITestOutputHelper) =
                     let! text = File.ReadAllTextAsync(file)
                     let context = BrowsingContext.New(angleSharpConfig)
 
-                    let! document = 
+                    let! document =
                         context.OpenAsync(fun req -> req.Content(text) |> ignore)
 
                     ///
-                    let container = 
+                    let container =
                         document.QuerySelector("body > table > tbody > tr > td > table:nth-child(5) > tbody > tr > td")
 
                     let content =
@@ -81,11 +82,11 @@ type MannaTest(output: ITestOutputHelper) =
                         |> Seq.filter(fun e -> e.TagName <> "HR")
                         |> Seq.toArray
 
-                    let content = 
+                    let content =
                         content.[0..content.Length-2]
                         |> Array.collect(removeBr)
                         |> Array.filter(fun e -> e.TextContent.Trim() <> "")
-                        |> Array.map(fun e -> 
+                        |> Array.map(fun e ->
                             e.TextContent <- e.TextContent.Trim()
                             e.OuterHtml)
                         |> String.concat "\n"
@@ -109,6 +110,32 @@ type MannaTest(output: ITestOutputHelper) =
 
         tcs.Task
 
+    [<Fact>]
+    member this. ``merge norm123456 into txt`` () =
+        let sourceDir = Path.Combine(root,"star")
+        let targetDir = Path.Combine(sourceDir, "target")
+
+        //删除目录下的所有文件
+        Directory.GetFiles(targetDir)
+        |> Array.iter(fun f -> File.Delete(f))
+
+        let outp =
+            Directory.GetFiles(sourceDir)
+            |> Array.sort
+            |> Array.map(fun file ->
+                let text = File.ReadAllText(file)
+                let htmlParser =
+                    BrowsingContext.New(Configuration.Default)
+                        .GetService<IHtmlParser>()
+                let document = htmlParser.ParseDocument(text)
+                document.Body.Children
+                |> Seq.map(fun e -> e.TextContent)
+                |> String.concat "\n"
+            )
+            |> String.concat "\n"
+
+        File.WriteAllText(Path.Combine(targetDir,"123456.txt"),outp)
+
     //[<Fact>]
     member this. ``norm source`` () =
         let file = Path.Combine(root,"source.html")
@@ -122,15 +149,13 @@ type MannaTest(output: ITestOutputHelper) =
                 p.AppendChild node |> ignore
                 p
             )
-        
-        
+
         task {
             let! text = File.ReadAllTextAsync(file)
             let context = BrowsingContext.New(Configuration.Default)
 
-            let! document = 
+            let! document =
                 context.OpenAsync(fun req -> req.Content(text) |> ignore)
-
 
             let content =
                 [
@@ -138,7 +163,7 @@ type MannaTest(output: ITestOutputHelper) =
                     yield! removeBr document.Body.LastElementChild
                 ]
                 |> List.filter(fun e -> e.HasChildNodes)
-                |> List.map(fun e -> 
+                |> List.map(fun e ->
                     e.FirstChild.NodeValue <- e.FirstChild.NodeValue.Trim()
                     e
                     )
@@ -149,16 +174,17 @@ type MannaTest(output: ITestOutputHelper) =
             let targetFile = Path.Combine(root,"target.html")
             do! File.WriteAllTextAsync(targetFile,content)
         }
+    
     [<Fact>]
     member this. ``norm html to text`` () =
-        let htmlFileDir = @"C:\Users\cuishengli\source\repos\xp44mm\MemoriesOfGirl"
+        let htmlFileDir = @"d:\source\repos\xp44mm\MemoriesOfGirl"
         let file = Path.Combine(htmlFileDir,"norm.html")
-        
+
         task {
             let! text = File.ReadAllTextAsync(file)
             let context = BrowsingContext.New(Configuration.Default)
 
-            let! document = 
+            let! document =
                 context.OpenAsync(fun req -> req.Content(text) |> ignore)
 
             let content =

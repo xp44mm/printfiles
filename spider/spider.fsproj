@@ -16,6 +16,8 @@
     <Compile Include="Manna.fs" />
     <Compile Include="初刻拍案惊奇.fs" />
     <Compile Include="二刻拍案惊奇.fs" />
+    <Compile Include="封神演义.fs" />
+    <Compile Include="呻吟语.fs" />
   </ItemGroup>
 
   <ItemGroup>

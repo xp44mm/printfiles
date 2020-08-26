@@ -14,7 +14,7 @@ open System.Net.Http
 open FSharp.Control.Tasks.V2
 
 type 二刻拍案惊奇(output: ITestOutputHelper) =
-    let hanchuancaolu = @"C:\Users\cuishengli\source\repos\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"d:\source\repos\xp44mm\hanchuancaolu"
 
     //[<Fact>]
     member this. ``下载`` () =        
