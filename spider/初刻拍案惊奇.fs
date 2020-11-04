@@ -5,16 +5,70 @@ open Xunit.Abstractions
 
 open System.Text
 open System.Net.Http
-open System.Reflection
 open System.IO
 open System
 open System.Threading.Tasks
 open System.Reactive.Linq
 
 open FSharp.Control.Tasks.V2
+open AngleSharp.Dom
+open AngleSharp
 
 type 初刻拍案惊奇(output: ITestOutputHelper) =
-    let hanchuancaolu = @"d:\source\repos\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"d:\xp44mm\hanchuancaolu"
+
+    [<Fact>]
+    member this. ``生成文本文件`` () =
+
+        //假设没有内联节点元素，全部都是块元素。
+        let getTexts (root:IElement) =
+            [
+                yield root.GetElementsByTagName("h2").[0].GetElementsByTagName("font").[0].TextContent.Trim()
+                for element in root.GetElementsByTagName("p") do
+                    let txt = element.TextContent
+                    yield txt.Trim()
+            ]
+
+        let source = Path.Combine(hanchuancaolu, this.GetType().Name)
+        let target = Path.Combine(source, "text")
+
+        //删除目标目录下所有文件
+        Directory.GetFiles(target)
+        |> Array.iter(File.Delete)
+
+        let tcs = TaskCompletionSource<string>();
+
+        Directory.GetFiles(source)
+            .ToObservable()
+            .Select(fun file ->
+                task {
+                    let! text = File.ReadAllTextAsync(file)
+                    let context = BrowsingContext.New(Configuration.Default)
+
+                    let! document = 
+                        context.OpenAsync(fun req -> req.Content(text) |> ignore)
+
+                    let content = 
+                        getTexts document.Body
+                        |> String.concat "\n"
+
+                    let targetFileName =
+                        Path.GetFileNameWithoutExtension(file)
+                        |> fun file -> Path.Combine(target, file+".txt")
+                    do! File.WriteAllTextAsync(targetFileName, content)
+                }
+            )
+            .Merge()
+            .Subscribe(
+                (fun () -> ()),
+                (fun () -> 
+                    output.WriteLine("done!")
+                    tcs.SetResult("done!"))
+            )
+        |> ignore
+
+        tcs.Task
+
 
     //[<Fact>]
     member this. ``初刻拍案惊奇`` () =

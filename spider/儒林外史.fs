@@ -15,7 +15,7 @@ open AngleSharp.Dom
 
 
 type 儒林外史(output: ITestOutputHelper) =
-    let hanchuancaolu = @"d:\source\repos\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"d:\xp44mm\hanchuancaolu"
 
     [<Fact>]
     member this. ``生成文本文件`` () =
