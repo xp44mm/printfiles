@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
     <GenerateProgramFile>false</GenerateProgramFile>
@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Include="GettingStarted.fs" />
+    <Compile Include="Dir.fs" />
     <Compile Include="HanchuancaoluDownloadTest.fs" />
     <Compile Include="HanchuancaoluRenameTest.fs" />
     <Compile Include="HanchuancaoluToTextTest.fs" />
@@ -19,24 +20,26 @@
     <Compile Include="封神演义.fs" />
     <Compile Include="呻吟语.fs" />
     <Compile Include="儒林外史.fs" />
+    <Compile Include="三言.fs" />
+    <Compile Include="三言生成文本文件.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="System.Reactive" Version="4.4.1" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
     <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="4.7.2" />
+    <PackageReference Update="FSharp.Core" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

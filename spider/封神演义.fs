@@ -17,12 +17,11 @@ open AngleSharp
 open AngleSharp.Dom
 open AngleSharp.Browser
 
-//在命令行执行以下命令复制
-//document.querySelector('div.chapter-content')
-//copy($_)
+//在控制台执行以下命令，复制html节点到剪贴板
+//copy(document.querySelector('div.chapter-content-wrap'))
 
 type 封神演义(output: ITestOutputHelper) =
-    let hanchuancaolu = @"d:\source\repos\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"D:\xp44mm\hanchuancaolu"
 
     //[<Fact>]
     member this. ``下载`` () =
@@ -45,8 +44,6 @@ type 封神演义(output: ITestOutputHelper) =
                     let! content =
                         website+(11424835+ii).ToString()
                         |> client.GetStringAsync
-                    //    |> client.GetByteArrayAsync
-                    //let content = GettingStarted.GB18030.GetString response
 
                     let fileName =
                         Path.Combine(rootDir,String.Format("{0:000}.html",ii))
@@ -63,6 +60,7 @@ type 封神演义(output: ITestOutputHelper) =
         |> ignore
 
         tcs.Task
+
     //[<Fact>]
     member this. ``norm remove br`` () =
         
