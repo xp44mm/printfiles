@@ -27,7 +27,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
 
     let htmlToTextAsync folder convert =
         let source = Path.Combine(hanchuancaolu,folder)
-        let target = Path.Combine("c:", folder)
+        let target = Path.Combine("D:", folder)
 
         //删除目标目录下所有文件
         Directory.GetFiles(target)
@@ -58,7 +58,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
 
         tcs.Task
 
-    [<Fact>]
+    [<Fact(Skip="")>]
     member this. ``紅樓夢`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -69,7 +69,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> Seq.map(fun elem -> elem.TextContent.Trim())
             |> String.concat "\n"
         )
-    [<Fact>]
+    [<Fact(Skip="")>]
     member this. ``西遊記`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -81,7 +81,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact>]
+    [<Fact(Skip="")>]
     member this. ``水滸傳`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -93,7 +93,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact>]
+    [<Fact(Skip="")>]
     member this. ``三國演義`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -105,7 +105,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact>]
+    [<Fact(Skip="")>]
     member this. ``儒林外史`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -117,7 +117,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact>]
+    [<Fact(Skip="")>]
     member this. ``聊齋志異`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -129,7 +129,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact>]
+    [<Fact(Skip="")>]
     member this. ``初刻拍案惊奇`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
