@@ -69,6 +69,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> Seq.map(fun elem -> elem.TextContent.Trim())
             |> String.concat "\n"
         )
+
     [<Fact(Skip="")>]
     member this. ``西遊記`` () =
         let folder = MethodBase.GetCurrentMethod().Name
