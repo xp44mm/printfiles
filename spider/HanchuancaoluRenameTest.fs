@@ -11,7 +11,7 @@ open System.Text.RegularExpressions
 
 ///重命名文件，全角空白變爲ASCII空格
 type HanchuancaoluRenameTest(output: ITestOutputHelper) =
-    let hanchuancaolu = @"D:\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"D:\githubrepos\xp44mm\hanchuancaolu"
 
     let renamefile (currentMethod : MethodBase) =
         let tcs = TaskCompletionSource<string>()

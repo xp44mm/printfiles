@@ -14,7 +14,7 @@ open AngleSharp
 open System.Text.RegularExpressions
 
 type HanchuancaoluToTextTest(output: ITestOutputHelper) =
-    let hanchuancaolu = @"D:\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"D:\githubrepos\xp44mm\hanchuancaolu"
 
     /// get parsed document
     let parseFileAsync file =
@@ -58,7 +58,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
 
         tcs.Task
 
-    [<Fact(Skip="")>]
+    [<Fact>] // (Skip="done")
     member this. ``紅樓夢`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 

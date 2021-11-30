@@ -10,6 +10,8 @@ open FSharp.Control.Tasks.V2
 open System.Net.Http
 open AngleSharp.Browser
 
+let hanchuancaolu = @"D:\githubrepos\xp44mm\hanchuancaolu"
+
 let ignoreMetaConfig = Configuration.Default.Without<EncodingMetaHandler>()
 
 ///獲取unicode網頁文本

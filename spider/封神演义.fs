@@ -16,12 +16,13 @@ open FSharp.Control.Tasks.V2
 open AngleSharp
 open AngleSharp.Dom
 open AngleSharp.Browser
+open System.Reflection
 
 //在控制台执行以下命令，复制html节点到剪贴板
 //copy(document.querySelector('div.chapter-content-wrap'))
 
 type 封神演义(output: ITestOutputHelper) =
-    let hanchuancaolu = @"D:\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"D:\githubrepos\xp44mm\hanchuancaolu"
 
     //[<Fact>]
     member this. ``下载`` () =
@@ -171,8 +172,9 @@ type 封神演义(output: ITestOutputHelper) =
 
     [<Fact>]
     member this. ``生成文本文件`` () =
-        let source = Path.Combine(hanchuancaolu, this.GetType().Name)
-        let target = Path.Combine(source, "target")
+        let folder = this.GetType().Name
+        let source = Path.Combine(hanchuancaolu, folder)
+        let target = Path.Combine("D:", folder)
 
         //删除目标目录下所有文件
         Directory.GetFiles(target)

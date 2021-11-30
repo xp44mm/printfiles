@@ -20,7 +20,7 @@ open AngleSharp.Dom
 //document.querySelector('div.main-content.gushi-info')
 //copy($_)
 type 呻吟语(output: ITestOutputHelper) =
-    let hanchuancaolu = @"D:\xp44mm\hanchuancaolu"
+    let hanchuancaolu = @"D:\githubrepos\xp44mm\hanchuancaolu"
 
     //[<Fact>]
     member this. ``下载`` () =        
