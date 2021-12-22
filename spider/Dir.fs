@@ -1,3 +1,3 @@
 ﻿module spider.Dir
 
-let hanchuancaolu = @"d:\xp44mm\hanchuancaolu"
+let hanchuancaolu = @"D:\githubrepos\xp44mm\hanchuancaolu"

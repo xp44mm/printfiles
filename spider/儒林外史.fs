@@ -28,7 +28,7 @@ type 儒林外史(output: ITestOutputHelper) =
                     yield txt.Trim()
             ]
 
-        let source = Path.Combine(GettingStarted.hanchuancaolu, this.GetType().Name)
+        let source = Path.Combine(Dir.hanchuancaolu, this.GetType().Name)
         let target = Path.Combine(@"d:\", this.GetType().Name)
 
         //删除目标目录下所有文件

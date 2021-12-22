@@ -15,7 +15,6 @@ open AngleSharp.Dom
 open AngleSharp
 
 type 初刻拍案惊奇(output: ITestOutputHelper) =
-    let hanchuancaolu = @"d:\xp44mm\hanchuancaolu"
     [<Fact>]
     member this. ``生成文本文件`` () =
 
@@ -28,8 +27,9 @@ type 初刻拍案惊奇(output: ITestOutputHelper) =
                     yield txt.Trim()
             ]
 
-        let source = Path.Combine(hanchuancaolu, this.GetType().Name)
-        let target = Path.Combine("d:\\", this.GetType().Name)
+        let name = this.GetType().Name
+        let source = Path.Combine(Dir.hanchuancaolu, name)
+        let target = Path.Combine(@"d:\", name)
 
         //删除目标目录下所有文件
         Directory.GetFiles(target)
@@ -71,7 +71,7 @@ type 初刻拍案惊奇(output: ITestOutputHelper) =
 
     //[<Fact>]
     member this. ``初刻拍案惊奇`` () =
-        let dir = Path.Combine(hanchuancaolu, this.GetType().Name)
+        let dir = Path.Combine(Dir.hanchuancaolu, this.GetType().Name)
 
         //准备文件目录，删除目录下的所有文件
         Directory.GetFiles(dir)

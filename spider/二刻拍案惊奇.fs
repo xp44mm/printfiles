@@ -14,11 +14,10 @@ open System.Net.Http
 open FSharp.Control.Tasks.V2
 
 type 二刻拍案惊奇(output: ITestOutputHelper) =
-    let hanchuancaolu = @"D:\githubrepos\xp44mm\hanchuancaolu"
 
     //[<Fact>]
     member this. ``下载`` () =        
-        let rootDir = Path.Combine(hanchuancaolu, this.GetType().Name)
+        let rootDir = Path.Combine(Dir.hanchuancaolu, this.GetType().Name)
 
         //准备文件目录，删除目录下的所有文件
         Directory.GetFiles(rootDir)
@@ -55,10 +54,11 @@ type 二刻拍案惊奇(output: ITestOutputHelper) =
 
         tcs.Task
 
-    //[<Fact>]
+    [<Fact>]
     member this. ``生成文本文件`` () =
-        let source = Path.Combine(hanchuancaolu, this.GetType().Name)
-        let target = Path.Combine(source, "target")
+        let name = this.GetType().Name
+        let source = Path.Combine(Dir.hanchuancaolu, name)
+        let target = Path.Combine(@"d:\", name)
 
         //删除目标目录下所有文件
         Directory.GetFiles(target)
