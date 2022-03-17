@@ -15,6 +15,7 @@ open AngleSharp.Dom
 open AngleSharp
 
 type 初刻拍案惊奇(output: ITestOutputHelper) =
+
     [<Fact>]
     member this. ``生成文本文件`` () =
 

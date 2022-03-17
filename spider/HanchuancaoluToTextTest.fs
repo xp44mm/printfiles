@@ -70,7 +70,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact(Skip="")>]
+    [<Fact>] //(Skip="")
     member this. ``西遊記`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -82,7 +82,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact(Skip="")>]
+    [<Fact>] //(Skip="")
     member this. ``水滸傳`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -94,7 +94,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact(Skip="")>]
+    [<Fact>] //(Skip="")
     member this. ``三國演義`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -106,7 +106,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact(Skip="")>]
+    [<Fact>] // (Skip="")
     member this. ``儒林外史`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -118,7 +118,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact(Skip="")>]
+    [<Fact>] // (Skip="")
     member this. ``聊齋志異`` () =
         let folder = MethodBase.GetCurrentMethod().Name
 
@@ -130,12 +130,3 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
             |> String.concat "\n"
         )
 
-    [<Fact(Skip="")>]
-    member this. ``初刻拍案惊奇`` () =
-        let folder = MethodBase.GetCurrentMethod().Name
-
-        htmlToTextAsync folder (fun document ->
-            document.Body.Children
-            |> Seq.map(fun elem -> elem.TextContent.Trim())
-            |> String.concat "\n"
-        )

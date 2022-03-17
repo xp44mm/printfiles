@@ -5,19 +5,15 @@ open Xunit.Abstractions
 
 open System
 open System.IO
-open System.Threading.Tasks
-open System.Text.RegularExpressions
+open System.Reflection
 open System.Reactive.Linq
-open System.Net.Http
+open System.Threading.Tasks
 
 open FSharp.Control.Tasks.V2
 
 open AngleSharp
-open AngleSharp.Dom
-open AngleSharp.Browser
-open System.Reflection
 
-
+///“三言”即《喻世明言》《警世通言》《醒世恒言》的合称。
 type 三言生成文本文件(output: ITestOutputHelper) =
     let htmlToTxt subdir =
         let sourceDir = Path.Combine(Dir.hanchuancaolu, subdir)

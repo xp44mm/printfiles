@@ -48,25 +48,3 @@ let firstLevel inp =
 
     | _ -> Some(Textual inp, "")
 
-////第二次解析Link和Image
-//let secondLevel inp =
-//    match inp with
-
-//    | "" -> None
-
-//    | @"\" -> Some(@"\","")
-
-//    | Matched @"^!" m ->
-//        match inp with
-//        | Matched @"^!\[(.*?)(?<!\\)\]\(.*?(?<!\\)\)" mm -> Some(codespan,rest)
-//        | _ -> Some(backsticks, tail)
-
-//    | Matched @"\[" m ->
-//        match inp with
-//        | Matched @"\[(.*?)(?<!\\)\]\(.*?(?<!\\)\)" mm -> Some(inlineLink,rest)
-//        | _ -> Some(link, tail)
-
-
-//    | Matched @"\\.|[^\\![]+" (textual, rest) ->Some(textual,rest)
-
-//    | _ -> Some(inp,"")

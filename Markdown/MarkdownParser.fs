@@ -173,18 +173,18 @@ let getBlocks lines =
                 loop blocks restLines
 
             | CodeFence (start,lang) -> // multiline block
-                let ii =
+                let maybeEndCodeFence =
                     restLines
                     |> List.tryFindIndex(fun ln -> Regex.IsMatch(ln,sprintf @"^\s*`{%d,}\s*$" start.Length))
 
-                match ii with
-                | Some i ->
-                    let content = restLines |> List.take i |> String.concat "\r\n"
-                    let close = restLines.Item i
-                    let restLines =  restLines |> List.skip (i+1)
+                match maybeEndCodeFence with
+                | Some endCodeFence ->
+                    let content = restLines |> List.take endCodeFence |> String.concat "\r\n"
+                    let close = restLines.Item endCodeFence
+                    let restLines =  restLines |> List.skip (endCodeFence+1)
                     let blocks = (indent,FencedCode(start, lang, content, close)) :: blocks
                     loop blocks restLines
-                | _ ->
+                | None ->
                     let blocks = (indent, Paragraph(line)) :: blocks
                     loop blocks restLines
 

@@ -4,7 +4,6 @@ open System
 open System.IO
 open ReflectionatRunTime
 
-//let folder = @"D:\repos\xp44mm\Programming Microsoft Visual Basic 2005 The Language\18 Reflection\EventInterceptorDemo"
 let folder = @"D:\repos\xp44mm\Programming Microsoft Visual Basic 2005 The Language\18 Reflection\ReflectionDemo"
 
 let filenames = 
