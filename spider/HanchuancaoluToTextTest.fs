@@ -72,7 +72,7 @@ type HanchuancaoluToTextTest(output: ITestOutputHelper) =
 
     [<Fact>] //(Skip="")
     member this. ``西遊記`` () =
-        let folder = MethodBase.GetCurrentMethod().Name
+        let folder = nameof this.``西遊記``
 
         htmlToTextAsync folder (fun document ->
             document.Body.Children
