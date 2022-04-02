@@ -44,6 +44,11 @@ let mergeSpans (nodes:HtmlNode list) =
     loop nodes
     |> String.concat ""
 
+let renderPara = function
+    | HtmlElement(("h1"|"h2"|"h3"|"h4"|"h5"|"h6"|"p"),_,nodes) ->
+        mergeSpans nodes
+    | node -> failwithf "%A" node
+
 let normalize name text =
     text
     |> HtmlUtils.parseNodes
@@ -68,7 +73,7 @@ open System.Reactive.Linq
 open FSharp.Control.Tasks.V2
 open FSharp.Idioms
 
-let writeToFiles (output: ITestOutputHelper) getContent subfolder =
+let writeToFiles (output: ITestOutputHelper) subfolder extname getContent =
     let source = Path.Combine(Dir.hanchuancaolu, subfolder)
     let target = Path.Combine("D:\\汉川草庐", subfolder)
 
@@ -87,7 +92,7 @@ let writeToFiles (output: ITestOutputHelper) getContent subfolder =
                 let content = getContent text
                 //return nodes
                 let targetFileName = 
-                    basename + ".html"
+                    basename + "." + extname
                     |> fun file -> Path.Combine(target,file)
 
                 do! File.WriteAllTextAsync(targetFileName,content)

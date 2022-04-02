@@ -29,7 +29,7 @@ type NormalizerTest(output: ITestOutputHelper) =
 
             content
 
-        HtmlOps.writeToFiles output getContent subfolder
+        HtmlOps.writeToFiles output subfolder "html" getContent
 
     [<Fact(Skip="done!")>] // 
     member this.``二刻拍案惊奇`` () =
@@ -52,7 +52,7 @@ type NormalizerTest(output: ITestOutputHelper) =
                 |> String.concat "\r\n"
         
             content
-        HtmlOps.writeToFiles output getContent subfolder
+        HtmlOps.writeToFiles output subfolder "html" getContent
 
     [<Fact(Skip="done!")>] // 
     member this.``封神演义`` () =
@@ -71,7 +71,7 @@ type NormalizerTest(output: ITestOutputHelper) =
                 |> String.concat "\r\n"
         
             content
-        HtmlOps.writeToFiles output getContent subfolder
+        HtmlOps.writeToFiles output subfolder "html" getContent
 
     [<Fact>] // (Skip="done!")
     member this.``儒林外史`` () =
@@ -89,7 +89,7 @@ type NormalizerTest(output: ITestOutputHelper) =
 
             content
 
-        HtmlOps.writeToFiles output getContent subfolder
+        HtmlOps.writeToFiles output subfolder "html" getContent
 
     [<Fact>] //(Skip="done!")
     member this.``呻吟语`` () =
@@ -112,7 +112,7 @@ type NormalizerTest(output: ITestOutputHelper) =
                 |> String.concat "\r\n"
         
             content
-        HtmlOps.writeToFiles output getContent subfolder
+        HtmlOps.writeToFiles output subfolder "html" getContent
             
     [<Fact>] // (Skip="done!")
     member this.``警世通言`` () =
@@ -131,7 +131,7 @@ type NormalizerTest(output: ITestOutputHelper) =
                 |> String.concat "\r\n"
         
             content
-        HtmlOps.writeToFiles output getContent subfolder
+        HtmlOps.writeToFiles output subfolder "html" getContent
 
     [<Fact>] // (Skip="done!")
     member this.``醒世恒言`` () =
@@ -150,7 +150,7 @@ type NormalizerTest(output: ITestOutputHelper) =
                 |> String.concat "\r\n"
         
             content
-        HtmlOps.writeToFiles output getContent subfolder
+        HtmlOps.writeToFiles output subfolder "html" getContent
 
     [<Fact>] // (Skip="done!")
     member this.``喻世明言`` () =
@@ -169,6 +169,6 @@ type NormalizerTest(output: ITestOutputHelper) =
                 |> String.concat "\r\n"
         
             content
-        HtmlOps.writeToFiles output getContent subfolder
+        HtmlOps.writeToFiles output subfolder "html" getContent
 
 

@@ -25,6 +25,7 @@
     <Compile Include="HtmlOps.fs" />
     <Compile Include="HanchuancaoluTest.fs" />
     <Compile Include="NormalizerTest.fs" />
+    <Compile Include="HtmlToTextTest.fs" />
   </ItemGroup>
 
   <ItemGroup>
