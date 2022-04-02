@@ -11,17 +11,6 @@
   <ItemGroup>
     <Compile Include="GettingStarted.fs" />
     <Compile Include="Dir.fs" />
-    <Compile Include="HanchuancaoluDownloadTest.fs" />
-    <Compile Include="HanchuancaoluRenameTest.fs" />
-    <Compile Include="HanchuancaoluToTextTest.fs" />
-    <Compile Include="Manna.fs" />
-    <Compile Include="初刻拍案惊奇.fs" />
-    <Compile Include="二刻拍案惊奇.fs" />
-    <Compile Include="封神演义.fs" />
-    <Compile Include="呻吟语.fs" />
-    <Compile Include="儒林外史.fs" />
-    <Compile Include="三言.fs" />
-    <Compile Include="三言生成文本文件.fs" />
     <Compile Include="HtmlOps.fs" />
     <Compile Include="HanchuancaoluTest.fs" />
     <Compile Include="NormalizerTest.fs" />
@@ -29,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="0.16.1" />
     <PackageReference Include="FSharp.HTML" Version="1.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
