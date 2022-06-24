@@ -1,3 +1,8 @@
 ﻿module spider.Dir
 
-let hanchuancaolu = @"D:\githubrepos\xp44mm\hanchuancaolu"
+open System.IO
+
+let solutionPath = DirectoryInfo(__SOURCE_DIRECTORY__).Parent.FullName
+let xp44mm = DirectoryInfo(solutionPath).Parent.FullName
+let hanchuancaolu = Path.Combine(xp44mm, "hanchuancaolu")
+let ecma262 = Path.Combine(xp44mm, "ecma262")

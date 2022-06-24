@@ -3,15 +3,9 @@
 open Xunit
 open Xunit.Abstractions
 
-open System
-open System.IO
-open System.Threading.Tasks
-open System.Reactive.Linq
-
-open FSharp.Control.Tasks.V2
-open FSharp.HTML
-open FSharp.Literals
 open System.Reflection
+
+open FSharp.HTML
 
 type HanchuancaoluTest(output: ITestOutputHelper) =
     let getContent subfolder text =

@@ -1,0 +1,95 @@
+﻿
+      Script :
+        ScriptBody?
+
+      ScriptBody :
+        StatementList[~Yield, ~Await, ~Return]
+    
+
+      Module :
+        ModuleBody?
+
+      ModuleBody :
+        ModuleItemList
+
+      ModuleItemList :
+        ModuleItem
+        ModuleItemList ModuleItem
+
+      ModuleItem :
+        ImportDeclaration
+        ExportDeclaration
+        StatementListItem[~Yield, +Await, ~Return]
+
+      ModuleExportName :
+        IdentifierName
+        StringLiteral
+    
+
+        ImportDeclaration :
+          `import` ImportClause FromClause `;`
+          `import` ModuleSpecifier `;`
+
+        ImportClause :
+          ImportedDefaultBinding
+          NameSpaceImport
+          NamedImports
+          ImportedDefaultBinding `,` NameSpaceImport
+          ImportedDefaultBinding `,` NamedImports
+
+        ImportedDefaultBinding :
+          ImportedBinding
+
+        NameSpaceImport :
+          `*` `as` ImportedBinding
+
+        NamedImports :
+          `{` `}`
+          `{` ImportsList `}`
+          `{` ImportsList `,` `}`
+
+        FromClause :
+          `from` ModuleSpecifier
+
+        ImportsList :
+          ImportSpecifier
+          ImportsList `,` ImportSpecifier
+
+        ImportSpecifier :
+          ImportedBinding
+          ModuleExportName `as` ImportedBinding
+
+        ModuleSpecifier :
+          StringLiteral
+
+        ImportedBinding :
+          BindingIdentifier[~Yield, +Await]
+      
+
+        ExportDeclaration :
+          `export` ExportFromClause FromClause `;`
+          `export` NamedExports `;`
+          `export` VariableStatement[~Yield, +Await]
+          `export` Declaration[~Yield, +Await]
+          `export` `default` HoistableDeclaration[~Yield, +Await, +Default]
+          `export` `default` ClassDeclaration[~Yield, +Await, +Default]
+          `export` `default` [lookahead ∉ { `function`, `async` [no LineTerminator here] `function`, `class` }] AssignmentExpression[+In, ~Yield, +Await] `;`
+
+        ExportFromClause :
+          `*`
+          `*` `as` ModuleExportName
+          NamedExports
+
+        NamedExports :
+          `{` `}`
+          `{` ExportsList `}`
+          `{` ExportsList `,` `}`
+
+        ExportsList :
+          ExportSpecifier
+          ExportsList `,` ExportSpecifier
+
+        ExportSpecifier :
+          ModuleExportName
+          ModuleExportName `as` ModuleExportName
+      

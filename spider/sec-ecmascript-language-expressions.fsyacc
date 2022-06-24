@@ -1,0 +1,374 @@
+﻿
+      IdentifierReference[Yield, Await] :
+        Identifier
+        [~Yield] `yield`
+        [~Await] `await`
+
+      BindingIdentifier[Yield, Await] :
+        Identifier
+        `yield`
+        `await`
+
+      LabelIdentifier[Yield, Await] :
+        Identifier
+        [~Yield] `yield`
+        [~Await] `await`
+
+      Identifier :
+        IdentifierName but not ReservedWord
+    
+
+      PrimaryExpression[Yield, Await] :
+        `this`
+        IdentifierReference[?Yield, ?Await]
+        Literal
+        ArrayLiteral[?Yield, ?Await]
+        ObjectLiteral[?Yield, ?Await]
+        FunctionExpression
+        ClassExpression[?Yield, ?Await]
+        GeneratorExpression
+        AsyncFunctionExpression
+        AsyncGeneratorExpression
+        RegularExpressionLiteral
+        TemplateLiteral[?Yield, ?Await, ~Tagged]
+        CoverParenthesizedExpressionAndArrowParameterList[?Yield, ?Await] #parencover
+
+      CoverParenthesizedExpressionAndArrowParameterList[Yield, Await] :
+        `(` Expression[+In, ?Yield, ?Await] `)`
+        `(` Expression[+In, ?Yield, ?Await] `,` `)`
+        `(` `)`
+        `(` `...` BindingIdentifier[?Yield, ?Await] `)`
+        `(` `...` BindingPattern[?Yield, ?Await] `)`
+        `(` Expression[+In, ?Yield, ?Await] `,` `...` BindingIdentifier[?Yield, ?Await] `)`
+        `(` Expression[+In, ?Yield, ?Await] `,` `...` BindingPattern[?Yield, ?Await] `)`
+    
+
+      ParenthesizedExpression[Yield, Await] :
+        `(` Expression[+In, ?Yield, ?Await] `)`
+    
+
+        Literal :
+          NullLiteral
+          BooleanLiteral
+          NumericLiteral
+          StringLiteral
+      
+
+        ArrayLiteral[Yield, Await] :
+          `[` Elision? `]`
+          `[` ElementList[?Yield, ?Await] `]`
+          `[` ElementList[?Yield, ?Await] `,` Elision? `]`
+
+        ElementList[Yield, Await] :
+          Elision? AssignmentExpression[+In, ?Yield, ?Await]
+          Elision? SpreadElement[?Yield, ?Await]
+          ElementList[?Yield, ?Await] `,` Elision? AssignmentExpression[+In, ?Yield, ?Await]
+          ElementList[?Yield, ?Await] `,` Elision? SpreadElement[?Yield, ?Await]
+
+        Elision :
+          `,`
+          Elision `,`
+
+        SpreadElement[Yield, Await] :
+          `...` AssignmentExpression[+In, ?Yield, ?Await]
+      
+
+        ObjectLiteral[Yield, Await] :
+          `{` `}`
+          `{` PropertyDefinitionList[?Yield, ?Await] `}`
+          `{` PropertyDefinitionList[?Yield, ?Await] `,` `}`
+
+        PropertyDefinitionList[Yield, Await] :
+          PropertyDefinition[?Yield, ?Await]
+          PropertyDefinitionList[?Yield, ?Await] `,` PropertyDefinition[?Yield, ?Await]
+
+        PropertyDefinition[Yield, Await] :
+          IdentifierReference[?Yield, ?Await]
+          CoverInitializedName[?Yield, ?Await]
+          PropertyName[?Yield, ?Await] `:` AssignmentExpression[+In, ?Yield, ?Await]
+          MethodDefinition[?Yield, ?Await]
+          `...` AssignmentExpression[+In, ?Yield, ?Await]
+
+        PropertyName[Yield, Await] :
+          LiteralPropertyName
+          ComputedPropertyName[?Yield, ?Await]
+
+        LiteralPropertyName :
+          IdentifierName
+          StringLiteral
+          NumericLiteral
+
+        ComputedPropertyName[Yield, Await] :
+          `[` AssignmentExpression[+In, ?Yield, ?Await] `]`
+
+        CoverInitializedName[Yield, Await] :
+          IdentifierReference[?Yield, ?Await] Initializer[+In, ?Yield, ?Await]
+
+        Initializer[In, Yield, Await] :
+          `=` AssignmentExpression[?In, ?Yield, ?Await]
+      
+
+        TemplateLiteral[Yield, Await, Tagged] :
+          NoSubstitutionTemplate
+          SubstitutionTemplate[?Yield, ?Await, ?Tagged]
+
+        SubstitutionTemplate[Yield, Await, Tagged] :
+          TemplateHead Expression[+In, ?Yield, ?Await] TemplateSpans[?Yield, ?Await, ?Tagged]
+
+        TemplateSpans[Yield, Await, Tagged] :
+          TemplateTail
+          TemplateMiddleList[?Yield, ?Await, ?Tagged] TemplateTail
+
+        TemplateMiddleList[Yield, Await, Tagged] :
+          TemplateMiddle Expression[+In, ?Yield, ?Await]
+          TemplateMiddleList[?Yield, ?Await, ?Tagged] TemplateMiddle Expression[+In, ?Yield, ?Await]
+      
+
+      MemberExpression[Yield, Await] :
+        PrimaryExpression[?Yield, ?Await]
+        MemberExpression[?Yield, ?Await] `[` Expression[+In, ?Yield, ?Await] `]`
+        MemberExpression[?Yield, ?Await] `.` IdentifierName
+        MemberExpression[?Yield, ?Await] TemplateLiteral[?Yield, ?Await, +Tagged]
+        SuperProperty[?Yield, ?Await]
+        MetaProperty
+        `new` MemberExpression[?Yield, ?Await] Arguments[?Yield, ?Await]
+        MemberExpression[?Yield, ?Await] `.` PrivateIdentifier
+
+      SuperProperty[Yield, Await] :
+        `super` `[` Expression[+In, ?Yield, ?Await] `]`
+        `super` `.` IdentifierName
+
+      MetaProperty :
+        NewTarget
+        ImportMeta
+
+      NewTarget :
+        `new` `.` `target`
+
+      ImportMeta :
+        `import` `.` `meta`
+
+      NewExpression[Yield, Await] :
+        MemberExpression[?Yield, ?Await]
+        `new` NewExpression[?Yield, ?Await]
+
+      CallExpression[Yield, Await] :
+        CoverCallExpressionAndAsyncArrowHead[?Yield, ?Await] #callcover
+        SuperCall[?Yield, ?Await]
+        ImportCall[?Yield, ?Await]
+        CallExpression[?Yield, ?Await] Arguments[?Yield, ?Await]
+        CallExpression[?Yield, ?Await] `[` Expression[+In, ?Yield, ?Await] `]`
+        CallExpression[?Yield, ?Await] `.` IdentifierName
+        CallExpression[?Yield, ?Await] TemplateLiteral[?Yield, ?Await, +Tagged]
+        CallExpression[?Yield, ?Await] `.` PrivateIdentifier
+
+      SuperCall[Yield, Await] :
+        `super` Arguments[?Yield, ?Await]
+
+      ImportCall[Yield, Await] :
+        `import` `(` AssignmentExpression[+In, ?Yield, ?Await] `)`
+
+      Arguments[Yield, Await] :
+        `(` `)`
+        `(` ArgumentList[?Yield, ?Await] `)`
+        `(` ArgumentList[?Yield, ?Await] `,` `)`
+
+      ArgumentList[Yield, Await] :
+        AssignmentExpression[+In, ?Yield, ?Await]
+        `...` AssignmentExpression[+In, ?Yield, ?Await]
+        ArgumentList[?Yield, ?Await] `,` AssignmentExpression[+In, ?Yield, ?Await]
+        ArgumentList[?Yield, ?Await] `,` `...` AssignmentExpression[+In, ?Yield, ?Await]
+
+      OptionalExpression[Yield, Await] :
+        MemberExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
+        CallExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
+        OptionalExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
+
+      OptionalChain[Yield, Await] :
+        `?.` Arguments[?Yield, ?Await]
+        `?.` `[` Expression[+In, ?Yield, ?Await] `]`
+        `?.` IdentifierName
+        `?.` TemplateLiteral[?Yield, ?Await, +Tagged]
+        `?.` PrivateIdentifier
+        OptionalChain[?Yield, ?Await] Arguments[?Yield, ?Await]
+        OptionalChain[?Yield, ?Await] `[` Expression[+In, ?Yield, ?Await] `]`
+        OptionalChain[?Yield, ?Await] `.` IdentifierName
+        OptionalChain[?Yield, ?Await] TemplateLiteral[?Yield, ?Await, +Tagged]
+        OptionalChain[?Yield, ?Await] `.` PrivateIdentifier
+
+      LeftHandSideExpression[Yield, Await] :
+        NewExpression[?Yield, ?Await]
+        CallExpression[?Yield, ?Await]
+        OptionalExpression[?Yield, ?Await]
+    
+
+      CallMemberExpression[Yield, Await] :
+        MemberExpression[?Yield, ?Await] Arguments[?Yield, ?Await]
+    
+
+      UpdateExpression[Yield, Await] :
+        LeftHandSideExpression[?Yield, ?Await]
+        LeftHandSideExpression[?Yield, ?Await] [no LineTerminator here] `++`
+        LeftHandSideExpression[?Yield, ?Await] [no LineTerminator here] `--`
+        `++` UnaryExpression[?Yield, ?Await]
+        `--` UnaryExpression[?Yield, ?Await]
+    
+
+      UnaryExpression[Yield, Await] :
+        UpdateExpression[?Yield, ?Await]
+        `delete` UnaryExpression[?Yield, ?Await]
+        `void` UnaryExpression[?Yield, ?Await]
+        `typeof` UnaryExpression[?Yield, ?Await]
+        `+` UnaryExpression[?Yield, ?Await]
+        `-` UnaryExpression[?Yield, ?Await]
+        `~` UnaryExpression[?Yield, ?Await]
+        `!` UnaryExpression[?Yield, ?Await]
+        [+Await] AwaitExpression[?Yield]
+    
+
+      ExponentiationExpression[Yield, Await] :
+        UnaryExpression[?Yield, ?Await]
+        UpdateExpression[?Yield, ?Await] `**` ExponentiationExpression[?Yield, ?Await]
+    
+
+      MultiplicativeExpression[Yield, Await] :
+        ExponentiationExpression[?Yield, ?Await]
+        MultiplicativeExpression[?Yield, ?Await] MultiplicativeOperator ExponentiationExpression[?Yield, ?Await]
+
+      MultiplicativeOperator : one of
+        `*` `/` `%`
+    
+
+      AdditiveExpression[Yield, Await] :
+        MultiplicativeExpression[?Yield, ?Await]
+        AdditiveExpression[?Yield, ?Await] `+` MultiplicativeExpression[?Yield, ?Await]
+        AdditiveExpression[?Yield, ?Await] `-` MultiplicativeExpression[?Yield, ?Await]
+    
+
+      ShiftExpression[Yield, Await] :
+        AdditiveExpression[?Yield, ?Await]
+        ShiftExpression[?Yield, ?Await] `<<` AdditiveExpression[?Yield, ?Await]
+        ShiftExpression[?Yield, ?Await] `>>` AdditiveExpression[?Yield, ?Await]
+        ShiftExpression[?Yield, ?Await] `>>>` AdditiveExpression[?Yield, ?Await]
+    
+
+      RelationalExpression[In, Yield, Await] :
+        ShiftExpression[?Yield, ?Await]
+        RelationalExpression[?In, ?Yield, ?Await] `<` ShiftExpression[?Yield, ?Await]
+        RelationalExpression[?In, ?Yield, ?Await] `>` ShiftExpression[?Yield, ?Await]
+        RelationalExpression[?In, ?Yield, ?Await] `<=` ShiftExpression[?Yield, ?Await]
+        RelationalExpression[?In, ?Yield, ?Await] `>=` ShiftExpression[?Yield, ?Await]
+        RelationalExpression[?In, ?Yield, ?Await] `instanceof` ShiftExpression[?Yield, ?Await]
+        [+In] RelationalExpression[+In, ?Yield, ?Await] `in` ShiftExpression[?Yield, ?Await]
+        [+In] PrivateIdentifier `in` ShiftExpression[?Yield, ?Await]
+    
+
+      EqualityExpression[In, Yield, Await] :
+        RelationalExpression[?In, ?Yield, ?Await]
+        EqualityExpression[?In, ?Yield, ?Await] `==` RelationalExpression[?In, ?Yield, ?Await]
+        EqualityExpression[?In, ?Yield, ?Await] `!=` RelationalExpression[?In, ?Yield, ?Await]
+        EqualityExpression[?In, ?Yield, ?Await] `===` RelationalExpression[?In, ?Yield, ?Await]
+        EqualityExpression[?In, ?Yield, ?Await] `!==` RelationalExpression[?In, ?Yield, ?Await]
+    
+
+      BitwiseANDExpression[In, Yield, Await] :
+        EqualityExpression[?In, ?Yield, ?Await]
+        BitwiseANDExpression[?In, ?Yield, ?Await] `&` EqualityExpression[?In, ?Yield, ?Await]
+
+      BitwiseXORExpression[In, Yield, Await] :
+        BitwiseANDExpression[?In, ?Yield, ?Await]
+        BitwiseXORExpression[?In, ?Yield, ?Await] `^` BitwiseANDExpression[?In, ?Yield, ?Await]
+
+      BitwiseORExpression[In, Yield, Await] :
+        BitwiseXORExpression[?In, ?Yield, ?Await]
+        BitwiseORExpression[?In, ?Yield, ?Await] `|` BitwiseXORExpression[?In, ?Yield, ?Await]
+    
+
+      LogicalANDExpression[In, Yield, Await] :
+        BitwiseORExpression[?In, ?Yield, ?Await]
+        LogicalANDExpression[?In, ?Yield, ?Await] `&&` BitwiseORExpression[?In, ?Yield, ?Await]
+
+      LogicalORExpression[In, Yield, Await] :
+        LogicalANDExpression[?In, ?Yield, ?Await]
+        LogicalORExpression[?In, ?Yield, ?Await] `||` LogicalANDExpression[?In, ?Yield, ?Await]
+
+      CoalesceExpression[In, Yield, Await] :
+        CoalesceExpressionHead[?In, ?Yield, ?Await] `??` BitwiseORExpression[?In, ?Yield, ?Await]
+
+      CoalesceExpressionHead[In, Yield, Await] :
+        CoalesceExpression[?In, ?Yield, ?Await]
+        BitwiseORExpression[?In, ?Yield, ?Await]
+
+      ShortCircuitExpression[In, Yield, Await] :
+        LogicalORExpression[?In, ?Yield, ?Await]
+        CoalesceExpression[?In, ?Yield, ?Await]
+    
+
+      ConditionalExpression[In, Yield, Await] :
+        ShortCircuitExpression[?In, ?Yield, ?Await]
+        ShortCircuitExpression[?In, ?Yield, ?Await] `?` AssignmentExpression[+In, ?Yield, ?Await] `:` AssignmentExpression[?In, ?Yield, ?Await]
+    
+
+      AssignmentExpression[In, Yield, Await] :
+        ConditionalExpression[?In, ?Yield, ?Await]
+        [+Yield] YieldExpression[?In, ?Await]
+        ArrowFunction[?In, ?Yield, ?Await]
+        AsyncArrowFunction[?In, ?Yield, ?Await]
+        LeftHandSideExpression[?Yield, ?Await] `=` AssignmentExpression[?In, ?Yield, ?Await] #assignment
+        LeftHandSideExpression[?Yield, ?Await] AssignmentOperator AssignmentExpression[?In, ?Yield, ?Await]
+        LeftHandSideExpression[?Yield, ?Await] `&&=` AssignmentExpression[?In, ?Yield, ?Await]
+        LeftHandSideExpression[?Yield, ?Await] `||=` AssignmentExpression[?In, ?Yield, ?Await]
+        LeftHandSideExpression[?Yield, ?Await] `??=` AssignmentExpression[?In, ?Yield, ?Await]
+
+      // emu-format ignore
+      AssignmentOperator : one of
+        `*=` `/=` `%=` `+=` `-=` `<<=` `>>=` `>>>=` `&=` `^=` `|=` `**=`
+    
+
+        AssignmentPattern[Yield, Await] :
+          ObjectAssignmentPattern[?Yield, ?Await]
+          ArrayAssignmentPattern[?Yield, ?Await]
+
+        ObjectAssignmentPattern[Yield, Await] :
+          `{` `}`
+          `{` AssignmentRestProperty[?Yield, ?Await] `}`
+          `{` AssignmentPropertyList[?Yield, ?Await] `}`
+          `{` AssignmentPropertyList[?Yield, ?Await] `,` AssignmentRestProperty[?Yield, ?Await]? `}`
+
+        ArrayAssignmentPattern[Yield, Await] :
+          `[` Elision? AssignmentRestElement[?Yield, ?Await]? `]`
+          `[` AssignmentElementList[?Yield, ?Await] `]`
+          `[` AssignmentElementList[?Yield, ?Await] `,` Elision? AssignmentRestElement[?Yield, ?Await]? `]`
+
+        AssignmentRestProperty[Yield, Await] :
+          `...` DestructuringAssignmentTarget[?Yield, ?Await]
+
+        AssignmentPropertyList[Yield, Await] :
+          AssignmentProperty[?Yield, ?Await]
+          AssignmentPropertyList[?Yield, ?Await] `,` AssignmentProperty[?Yield, ?Await]
+
+        AssignmentElementList[Yield, Await] :
+          AssignmentElisionElement[?Yield, ?Await]
+          AssignmentElementList[?Yield, ?Await] `,` AssignmentElisionElement[?Yield, ?Await]
+
+        AssignmentElisionElement[Yield, Await] :
+          Elision? AssignmentElement[?Yield, ?Await]
+
+        AssignmentProperty[Yield, Await] :
+          IdentifierReference[?Yield, ?Await] Initializer[+In, ?Yield, ?Await]?
+          PropertyName[?Yield, ?Await] `:` AssignmentElement[?Yield, ?Await]
+
+        AssignmentElement[Yield, Await] :
+          DestructuringAssignmentTarget[?Yield, ?Await] Initializer[+In, ?Yield, ?Await]?
+
+        AssignmentRestElement[Yield, Await] :
+          `...` DestructuringAssignmentTarget[?Yield, ?Await]
+
+        DestructuringAssignmentTarget[Yield, Await] :
+          LeftHandSideExpression[?Yield, ?Await]
+      
+
+      Expression[In, Yield, Await] :
+        AssignmentExpression[?In, ?Yield, ?Await]
+        Expression[?In, ?Yield, ?Await] `,` AssignmentExpression[?In, ?Yield, ?Await]
+    

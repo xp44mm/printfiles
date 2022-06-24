@@ -1,0 +1,180 @@
+﻿
+      UniqueFormalParameters[Yield, Await] :
+        FormalParameters[?Yield, ?Await]
+
+      FormalParameters[Yield, Await] :
+        [empty]
+        FunctionRestParameter[?Yield, ?Await]
+        FormalParameterList[?Yield, ?Await]
+        FormalParameterList[?Yield, ?Await] `,`
+        FormalParameterList[?Yield, ?Await] `,` FunctionRestParameter[?Yield, ?Await]
+
+      FormalParameterList[Yield, Await] :
+        FormalParameter[?Yield, ?Await]
+        FormalParameterList[?Yield, ?Await] `,` FormalParameter[?Yield, ?Await]
+
+      FunctionRestParameter[Yield, Await] :
+        BindingRestElement[?Yield, ?Await]
+
+      FormalParameter[Yield, Await] :
+        BindingElement[?Yield, ?Await]
+    
+
+      FunctionDeclaration[Yield, Await, Default] :
+        `function` BindingIdentifier[?Yield, ?Await] `(` FormalParameters[~Yield, ~Await] `)` `{` FunctionBody[~Yield, ~Await] `}`
+        [+Default] `function` `(` FormalParameters[~Yield, ~Await] `)` `{` FunctionBody[~Yield, ~Await] `}`
+
+      FunctionExpression :
+        `function` BindingIdentifier[~Yield, ~Await]? `(` FormalParameters[~Yield, ~Await] `)` `{` FunctionBody[~Yield, ~Await] `}`
+
+      FunctionBody[Yield, Await] :
+        FunctionStatementList[?Yield, ?Await]
+
+      FunctionStatementList[Yield, Await] :
+        StatementList[?Yield, ?Await, +Return]?
+    
+
+      ArrowFunction[In, Yield, Await] :
+        ArrowParameters[?Yield, ?Await] [no LineTerminator here] `=>` ConciseBody[?In]
+
+      ArrowParameters[Yield, Await] :
+        BindingIdentifier[?Yield, ?Await]
+        CoverParenthesizedExpressionAndArrowParameterList[?Yield, ?Await] #parencover
+
+      ConciseBody[In] :
+        [lookahead != `{`] ExpressionBody[?In, ~Await]
+        `{` FunctionBody[~Yield, ~Await] `}`
+
+      ExpressionBody[In, Await] :
+        AssignmentExpression[?In, ~Yield, ?Await]
+    
+
+      ArrowFormalParameters[Yield, Await] :
+        `(` UniqueFormalParameters[?Yield, ?Await] `)`
+    
+
+      MethodDefinition[Yield, Await] :
+        ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, ~Await] `)` `{` FunctionBody[~Yield, ~Await] `}`
+        GeneratorMethod[?Yield, ?Await]
+        AsyncMethod[?Yield, ?Await]
+        AsyncGeneratorMethod[?Yield, ?Await]
+        `get` ClassElementName[?Yield, ?Await] `(` `)` `{` FunctionBody[~Yield, ~Await] `}`
+        `set` ClassElementName[?Yield, ?Await] `(` PropertySetParameterList `)` `{` FunctionBody[~Yield, ~Await] `}`
+
+      PropertySetParameterList :
+        FormalParameter[~Yield, ~Await]
+    
+
+      GeneratorDeclaration[Yield, Await, Default] :
+        `function` `*` BindingIdentifier[?Yield, ?Await] `(` FormalParameters[+Yield, ~Await] `)` `{` GeneratorBody `}`
+        [+Default] `function` `*` `(` FormalParameters[+Yield, ~Await] `)` `{` GeneratorBody `}`
+
+      GeneratorExpression :
+        `function` `*` BindingIdentifier[+Yield, ~Await]? `(` FormalParameters[+Yield, ~Await] `)` `{` GeneratorBody `}`
+
+      GeneratorMethod[Yield, Await] :
+        `*` ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[+Yield, ~Await] `)` `{` GeneratorBody `}`
+
+      GeneratorBody :
+        FunctionBody[+Yield, ~Await]
+
+      YieldExpression[In, Await] :
+        `yield`
+        `yield` [no LineTerminator here] AssignmentExpression[?In, +Yield, ?Await]
+        `yield` [no LineTerminator here] `*` AssignmentExpression[?In, +Yield, ?Await]
+    
+
+      AsyncGeneratorDeclaration[Yield, Await, Default] :
+        `async` [no LineTerminator here] `function` `*` BindingIdentifier[?Yield, ?Await] `(` FormalParameters[+Yield, +Await] `)` `{` AsyncGeneratorBody `}`
+        [+Default] `async` [no LineTerminator here] `function` `*` `(` FormalParameters[+Yield, +Await] `)` `{` AsyncGeneratorBody `}`
+
+      AsyncGeneratorExpression :
+        `async` [no LineTerminator here] `function` `*` BindingIdentifier[+Yield, +Await]? `(` FormalParameters[+Yield, +Await] `)` `{` AsyncGeneratorBody `}`
+
+      AsyncGeneratorMethod[Yield, Await] :
+        `async` [no LineTerminator here] `*` ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[+Yield, +Await] `)` `{` AsyncGeneratorBody `}`
+
+      AsyncGeneratorBody :
+        FunctionBody[+Yield, +Await]
+    
+
+      ClassDeclaration[Yield, Await, Default] :
+        `class` BindingIdentifier[?Yield, ?Await] ClassTail[?Yield, ?Await]
+        [+Default] `class` ClassTail[?Yield, ?Await]
+
+      ClassExpression[Yield, Await] :
+        `class` BindingIdentifier[?Yield, ?Await]? ClassTail[?Yield, ?Await]
+
+      ClassTail[Yield, Await] :
+        ClassHeritage[?Yield, ?Await]? `{` ClassBody[?Yield, ?Await]? `}`
+
+      ClassHeritage[Yield, Await] :
+        `extends` LeftHandSideExpression[?Yield, ?Await]
+
+      ClassBody[Yield, Await] :
+        ClassElementList[?Yield, ?Await]
+
+      ClassElementList[Yield, Await] :
+        ClassElement[?Yield, ?Await]
+        ClassElementList[?Yield, ?Await] ClassElement[?Yield, ?Await]
+
+      ClassElement[Yield, Await] :
+        MethodDefinition[?Yield, ?Await]
+        `static` MethodDefinition[?Yield, ?Await]
+        FieldDefinition[?Yield, ?Await] `;`
+        `static` FieldDefinition[?Yield, ?Await] `;`
+        ClassStaticBlock
+        `;`
+
+      FieldDefinition[Yield, Await] :
+        ClassElementName[?Yield, ?Await] Initializer[+In, ?Yield, ?Await]?
+
+      ClassElementName[Yield, Await] :
+        PropertyName[?Yield, ?Await]
+        PrivateIdentifier
+
+      ClassStaticBlock :
+        `static` `{` ClassStaticBlockBody `}`
+
+      ClassStaticBlockBody :
+        ClassStaticBlockStatementList
+
+      ClassStaticBlockStatementList :
+        StatementList[~Yield, +Await, ~Return]?
+    
+
+      AsyncFunctionDeclaration[Yield, Await, Default] :
+        `async` [no LineTerminator here] `function` BindingIdentifier[?Yield, ?Await] `(` FormalParameters[~Yield, +Await] `)` `{` AsyncFunctionBody `}`
+        [+Default] `async` [no LineTerminator here] `function` `(` FormalParameters[~Yield, +Await] `)` `{` AsyncFunctionBody `}`
+
+      AsyncFunctionExpression :
+        `async` [no LineTerminator here] `function` BindingIdentifier[~Yield, +Await]? `(` FormalParameters[~Yield, +Await] `)` `{` AsyncFunctionBody `}`
+
+      AsyncMethod[Yield, Await] :
+        `async` [no LineTerminator here] ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, +Await] `)` `{` AsyncFunctionBody `}`
+
+      AsyncFunctionBody :
+        FunctionBody[~Yield, +Await]
+
+      AwaitExpression[Yield] :
+        `await` UnaryExpression[?Yield, +Await]
+    
+
+      AsyncArrowFunction[In, Yield, Await] :
+        `async` [no LineTerminator here] AsyncArrowBindingIdentifier[?Yield] [no LineTerminator here] `=>` AsyncConciseBody[?In]
+        CoverCallExpressionAndAsyncArrowHead[?Yield, ?Await] [no LineTerminator here] `=>` AsyncConciseBody[?In] #callcover
+
+      AsyncConciseBody[In] :
+        [lookahead != `{`] ExpressionBody[?In, +Await]
+        `{` AsyncFunctionBody `}`
+
+      AsyncArrowBindingIdentifier[Yield] :
+        BindingIdentifier[?Yield, +Await]
+
+      CoverCallExpressionAndAsyncArrowHead[Yield, Await] :
+        MemberExpression[?Yield, ?Await] Arguments[?Yield, ?Await]
+    
+
+      AsyncArrowHead :
+        `async` [no LineTerminator here] ArrowFormalParameters[~Yield, +Await]
+    

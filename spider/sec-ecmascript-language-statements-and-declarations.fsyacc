@@ -1,0 +1,243 @@
+﻿
+    Statement[Yield, Await, Return] :
+      BlockStatement[?Yield, ?Await, ?Return]
+      VariableStatement[?Yield, ?Await]
+      EmptyStatement
+      ExpressionStatement[?Yield, ?Await]
+      IfStatement[?Yield, ?Await, ?Return]
+      BreakableStatement[?Yield, ?Await, ?Return]
+      ContinueStatement[?Yield, ?Await]
+      BreakStatement[?Yield, ?Await]
+      [+Return] ReturnStatement[?Yield, ?Await]
+      WithStatement[?Yield, ?Await, ?Return]
+      LabelledStatement[?Yield, ?Await, ?Return]
+      ThrowStatement[?Yield, ?Await]
+      TryStatement[?Yield, ?Await, ?Return]
+      DebuggerStatement
+
+    Declaration[Yield, Await] :
+      HoistableDeclaration[?Yield, ?Await, ~Default]
+      ClassDeclaration[?Yield, ?Await, ~Default]
+      LexicalDeclaration[+In, ?Yield, ?Await]
+
+    HoistableDeclaration[Yield, Await, Default] :
+      FunctionDeclaration[?Yield, ?Await, ?Default]
+      GeneratorDeclaration[?Yield, ?Await, ?Default]
+      AsyncFunctionDeclaration[?Yield, ?Await, ?Default]
+      AsyncGeneratorDeclaration[?Yield, ?Await, ?Default]
+
+    BreakableStatement[Yield, Await, Return] :
+      IterationStatement[?Yield, ?Await, ?Return]
+      SwitchStatement[?Yield, ?Await, ?Return]
+  
+
+      BlockStatement[Yield, Await, Return] :
+        Block[?Yield, ?Await, ?Return]
+
+      Block[Yield, Await, Return] :
+        `{` StatementList[?Yield, ?Await, ?Return]? `}`
+
+      StatementList[Yield, Await, Return] :
+        StatementListItem[?Yield, ?Await, ?Return]
+        StatementList[?Yield, ?Await, ?Return] StatementListItem[?Yield, ?Await, ?Return]
+
+      StatementListItem[Yield, Await, Return] :
+        Statement[?Yield, ?Await, ?Return]
+        Declaration[?Yield, ?Await]
+    
+
+        LexicalDeclaration[In, Yield, Await] :
+          LetOrConst BindingList[?In, ?Yield, ?Await] `;`
+
+        LetOrConst :
+          `let`
+          `const`
+
+        BindingList[In, Yield, Await] :
+          LexicalBinding[?In, ?Yield, ?Await]
+          BindingList[?In, ?Yield, ?Await] `,` LexicalBinding[?In, ?Yield, ?Await]
+
+        LexicalBinding[In, Yield, Await] :
+          BindingIdentifier[?Yield, ?Await] Initializer[?In, ?Yield, ?Await]?
+          BindingPattern[?Yield, ?Await] Initializer[?In, ?Yield, ?Await]
+      
+
+        VariableStatement[Yield, Await] :
+          `var` VariableDeclarationList[+In, ?Yield, ?Await] `;`
+
+        VariableDeclarationList[In, Yield, Await] :
+          VariableDeclaration[?In, ?Yield, ?Await]
+          VariableDeclarationList[?In, ?Yield, ?Await] `,` VariableDeclaration[?In, ?Yield, ?Await]
+
+        VariableDeclaration[In, Yield, Await] :
+          BindingIdentifier[?Yield, ?Await] Initializer[?In, ?Yield, ?Await]?
+          BindingPattern[?Yield, ?Await] Initializer[?In, ?Yield, ?Await]
+      
+
+        BindingPattern[Yield, Await] :
+          ObjectBindingPattern[?Yield, ?Await]
+          ArrayBindingPattern[?Yield, ?Await]
+
+        ObjectBindingPattern[Yield, Await] :
+          `{` `}`
+          `{` BindingRestProperty[?Yield, ?Await] `}`
+          `{` BindingPropertyList[?Yield, ?Await] `}`
+          `{` BindingPropertyList[?Yield, ?Await] `,` BindingRestProperty[?Yield, ?Await]? `}`
+
+        ArrayBindingPattern[Yield, Await] :
+          `[` Elision? BindingRestElement[?Yield, ?Await]? `]`
+          `[` BindingElementList[?Yield, ?Await] `]`
+          `[` BindingElementList[?Yield, ?Await] `,` Elision? BindingRestElement[?Yield, ?Await]? `]`
+
+        BindingRestProperty[Yield, Await] :
+          `...` BindingIdentifier[?Yield, ?Await]
+
+        BindingPropertyList[Yield, Await] :
+          BindingProperty[?Yield, ?Await]
+          BindingPropertyList[?Yield, ?Await] `,` BindingProperty[?Yield, ?Await]
+
+        BindingElementList[Yield, Await] :
+          BindingElisionElement[?Yield, ?Await]
+          BindingElementList[?Yield, ?Await] `,` BindingElisionElement[?Yield, ?Await]
+
+        BindingElisionElement[Yield, Await] :
+          Elision? BindingElement[?Yield, ?Await]
+
+        BindingProperty[Yield, Await] :
+          SingleNameBinding[?Yield, ?Await]
+          PropertyName[?Yield, ?Await] `:` BindingElement[?Yield, ?Await]
+
+        BindingElement[Yield, Await] :
+          SingleNameBinding[?Yield, ?Await]
+          BindingPattern[?Yield, ?Await] Initializer[+In, ?Yield, ?Await]?
+
+        SingleNameBinding[Yield, Await] :
+          BindingIdentifier[?Yield, ?Await] Initializer[+In, ?Yield, ?Await]?
+
+        BindingRestElement[Yield, Await] :
+          `...` BindingIdentifier[?Yield, ?Await]
+          `...` BindingPattern[?Yield, ?Await]
+      
+
+      EmptyStatement :
+        `;`
+    
+
+      ExpressionStatement[Yield, Await] :
+        [lookahead ∉ { `{`, `function`, `async` [no LineTerminator here] `function`, `class`, `let` `[` }] Expression[+In, ?Yield, ?Await] `;`
+    
+
+      IfStatement[Yield, Await, Return] :
+        `if` `(` Expression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return] `else` Statement[?Yield, ?Await, ?Return]
+        `if` `(` Expression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return] [lookahead != `else`]
+    
+
+      IterationStatement[Yield, Await, Return] :
+        DoWhileStatement[?Yield, ?Await, ?Return]
+        WhileStatement[?Yield, ?Await, ?Return]
+        ForStatement[?Yield, ?Await, ?Return]
+        ForInOfStatement[?Yield, ?Await, ?Return]
+    
+
+        DoWhileStatement[Yield, Await, Return] :
+          `do` Statement[?Yield, ?Await, ?Return] `while` `(` Expression[+In, ?Yield, ?Await] `)` `;`
+      
+
+        WhileStatement[Yield, Await, Return] :
+          `while` `(` Expression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+      
+
+        ForStatement[Yield, Await, Return] :
+          `for` `(` [lookahead != `let` `[`] Expression[~In, ?Yield, ?Await]? `;` Expression[+In, ?Yield, ?Await]? `;` Expression[+In, ?Yield, ?Await]? `)` Statement[?Yield, ?Await, ?Return]
+          `for` `(` `var` VariableDeclarationList[~In, ?Yield, ?Await] `;` Expression[+In, ?Yield, ?Await]? `;` Expression[+In, ?Yield, ?Await]? `)` Statement[?Yield, ?Await, ?Return]
+          `for` `(` LexicalDeclaration[~In, ?Yield, ?Await] Expression[+In, ?Yield, ?Await]? `;` Expression[+In, ?Yield, ?Await]? `)` Statement[?Yield, ?Await, ?Return]
+      
+
+        ForInOfStatement[Yield, Await, Return] :
+          `for` `(` [lookahead != `let` `[`] LeftHandSideExpression[?Yield, ?Await] `in` Expression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+          `for` `(` `var` ForBinding[?Yield, ?Await] `in` Expression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+          `for` `(` ForDeclaration[?Yield, ?Await] `in` Expression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+          `for` `(` [lookahead ∉ { `let`, `async` `of` }] LeftHandSideExpression[?Yield, ?Await] `of` AssignmentExpression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+          `for` `(` `var` ForBinding[?Yield, ?Await] `of` AssignmentExpression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+          `for` `(` ForDeclaration[?Yield, ?Await] `of` AssignmentExpression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+          [+Await] `for` `await` `(` [lookahead != `let`] LeftHandSideExpression[?Yield, ?Await] `of` AssignmentExpression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+          [+Await] `for` `await` `(` `var` ForBinding[?Yield, ?Await] `of` AssignmentExpression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+          [+Await] `for` `await` `(` ForDeclaration[?Yield, ?Await] `of` AssignmentExpression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+
+        ForDeclaration[Yield, Await] :
+          LetOrConst ForBinding[?Yield, ?Await]
+
+        ForBinding[Yield, Await] :
+          BindingIdentifier[?Yield, ?Await]
+          BindingPattern[?Yield, ?Await]
+      
+
+      ContinueStatement[Yield, Await] :
+        `continue` `;`
+        `continue` [no LineTerminator here] LabelIdentifier[?Yield, ?Await] `;`
+    
+
+      BreakStatement[Yield, Await] :
+        `break` `;`
+        `break` [no LineTerminator here] LabelIdentifier[?Yield, ?Await] `;`
+    
+
+      ReturnStatement[Yield, Await] :
+        `return` `;`
+        `return` [no LineTerminator here] Expression[+In, ?Yield, ?Await] `;`
+    
+
+      WithStatement[Yield, Await, Return] :
+        `with` `(` Expression[+In, ?Yield, ?Await] `)` Statement[?Yield, ?Await, ?Return]
+    
+
+      SwitchStatement[Yield, Await, Return] :
+        `switch` `(` Expression[+In, ?Yield, ?Await] `)` CaseBlock[?Yield, ?Await, ?Return]
+
+      CaseBlock[Yield, Await, Return] :
+        `{` CaseClauses[?Yield, ?Await, ?Return]? `}`
+        `{` CaseClauses[?Yield, ?Await, ?Return]? DefaultClause[?Yield, ?Await, ?Return] CaseClauses[?Yield, ?Await, ?Return]? `}`
+
+      CaseClauses[Yield, Await, Return] :
+        CaseClause[?Yield, ?Await, ?Return]
+        CaseClauses[?Yield, ?Await, ?Return] CaseClause[?Yield, ?Await, ?Return]
+
+      CaseClause[Yield, Await, Return] :
+        `case` Expression[+In, ?Yield, ?Await] `:` StatementList[?Yield, ?Await, ?Return]?
+
+      DefaultClause[Yield, Await, Return] :
+        `default` `:` StatementList[?Yield, ?Await, ?Return]?
+    
+
+      LabelledStatement[Yield, Await, Return] :
+        LabelIdentifier[?Yield, ?Await] `:` LabelledItem[?Yield, ?Await, ?Return]
+
+      LabelledItem[Yield, Await, Return] :
+        Statement[?Yield, ?Await, ?Return]
+        FunctionDeclaration[?Yield, ?Await, ~Default]
+    
+
+      ThrowStatement[Yield, Await] :
+        `throw` [no LineTerminator here] Expression[+In, ?Yield, ?Await] `;`
+    
+
+      TryStatement[Yield, Await, Return] :
+        `try` Block[?Yield, ?Await, ?Return] Catch[?Yield, ?Await, ?Return]
+        `try` Block[?Yield, ?Await, ?Return] Finally[?Yield, ?Await, ?Return]
+        `try` Block[?Yield, ?Await, ?Return] Catch[?Yield, ?Await, ?Return] Finally[?Yield, ?Await, ?Return]
+
+      Catch[Yield, Await, Return] :
+        `catch` `(` CatchParameter[?Yield, ?Await] `)` Block[?Yield, ?Await, ?Return]
+        `catch` Block[?Yield, ?Await, ?Return]
+
+      Finally[Yield, Await, Return] :
+        `finally` Block[?Yield, ?Await, ?Return]
+
+      CatchParameter[Yield, Await] :
+        BindingIdentifier[?Yield, ?Await]
+        BindingPattern[?Yield, ?Await]
+    
+
+      DebuggerStatement :
+        `debugger` `;`
+    

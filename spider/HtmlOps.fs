@@ -51,7 +51,8 @@ let renderPara = function
 
 let normalize name text =
     text
-    |> HtmlUtils.parseNodes
+    |> HtmlUtils.parseDoc
+    |> snd
     |> List.collect pickParagraph
     |> List.filter (filterNode name)
     |> List.filter (filterNode "校對語譯：luo")

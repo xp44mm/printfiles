@@ -3,15 +3,9 @@
 open Xunit
 open Xunit.Abstractions
 
-open System
-open System.IO
-open System.Threading.Tasks
-open System.Reactive.Linq
-
-open FSharp.Control.Tasks.V2
-open FSharp.HTML
-open FSharp.Literals
 open System.Reflection
+
+open FSharp.HTML
 open FSharp.Idioms
 
 type NormalizerTest(output: ITestOutputHelper) =
@@ -59,7 +53,7 @@ type NormalizerTest(output: ITestOutputHelper) =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 
-                match HtmlUtils.parseNodes text with
+                match text |> HtmlUtils.parseDoc |> snd with
                 | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
                     let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
                     h::nodes
@@ -80,7 +74,8 @@ type NormalizerTest(output: ITestOutputHelper) =
         let getContent text =
             let nodes = 
                 text
-                |> HtmlUtils.parseNodes
+                |> HtmlUtils.parseDoc
+                |> snd
 
             let content =
                 nodes
@@ -97,7 +92,8 @@ type NormalizerTest(output: ITestOutputHelper) =
         let getContent (text:string) =
             let nodes = 
                 text
-                |> HtmlUtils.parseNodes
+                |> HtmlUtils.parseDoc
+                |> snd
                 |> List.collect HtmlOps.pickParagraph
                 |> List.map(function
                     | HtmlElement(nm,attrs,children) ->
@@ -119,7 +115,7 @@ type NormalizerTest(output: ITestOutputHelper) =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 
-                match HtmlUtils.parseNodes text with
+                match text |> HtmlUtils.parseDoc |> snd with
                 | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
                     let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
                     h::nodes
@@ -138,7 +134,7 @@ type NormalizerTest(output: ITestOutputHelper) =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 
-                match HtmlUtils.parseNodes text with
+                match text |> HtmlUtils.parseDoc |> snd with
                 | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
                     let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
                     h::nodes
@@ -157,7 +153,7 @@ type NormalizerTest(output: ITestOutputHelper) =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 
-                match HtmlUtils.parseNodes text with
+                match text |> HtmlUtils.parseDoc |> snd with
                 | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
                     let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
                     h::nodes
