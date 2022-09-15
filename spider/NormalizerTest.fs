@@ -109,7 +109,26 @@ type NormalizerTest(output: ITestOutputHelper) =
         
             content
         HtmlOps.writeToFiles output subfolder "html" getContent
-            
+
+    [<Fact>] // (Skip="done!")
+    member this.``喻世明言`` () =
+        let subfolder = MethodBase.GetCurrentMethod().Name
+        let getContent (text:string) =
+            let nodes = 
+                match text |> HtmlUtils.parseDoc |> snd with
+                | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
+                    let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
+                    h::nodes
+                | x -> failwithf "%A" x
+
+            let content =
+                nodes
+                |> Seq.map HtmlUtils.stringifyNode
+                |> String.concat "\r\n"
+        
+            content
+        HtmlOps.writeToFiles output subfolder "html" getContent
+
     [<Fact>] // (Skip="done!")
     member this.``警世通言`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
@@ -131,25 +150,6 @@ type NormalizerTest(output: ITestOutputHelper) =
 
     [<Fact>] // (Skip="done!")
     member this.``醒世恒言`` () =
-        let subfolder = MethodBase.GetCurrentMethod().Name
-        let getContent (text:string) =
-            let nodes = 
-                match text |> HtmlUtils.parseDoc |> snd with
-                | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
-                    let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
-                    h::nodes
-                | x -> failwithf "%A" x
-
-            let content =
-                nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
-        
-            content
-        HtmlOps.writeToFiles output subfolder "html" getContent
-
-    [<Fact>] // (Skip="done!")
-    member this.``喻世明言`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 

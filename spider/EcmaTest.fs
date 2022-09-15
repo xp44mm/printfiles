@@ -45,11 +45,6 @@ type EcmaTest(output: ITestOutputHelper) =
 
         let nodes =
             text
-            //|> Tokenizer.tokenize
-            //|> HtmlTokenUtils.preamble
-            //|> snd
-            //|> Seq.choose HtmlTokenUtils.unifyVoidElement
-            //|> Compiler.parse
             |> Parser.parseDoc
             |> snd
             |> List.map HtmlCharRefs.unescapseNode

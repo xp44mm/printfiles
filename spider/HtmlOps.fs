@@ -68,10 +68,10 @@ let normalize name text =
 open Xunit.Abstractions
 open System
 open System.IO
+open System.Text
+
 open System.Threading.Tasks
 open System.Reactive.Linq
-
-open FSharp.Control.Tasks.V2
 open FSharp.Idioms
 
 let writeToFiles (output: ITestOutputHelper) subfolder extname getContent =
@@ -96,7 +96,7 @@ let writeToFiles (output: ITestOutputHelper) subfolder extname getContent =
                     basename + "." + extname
                     |> fun file -> Path.Combine(target,file)
 
-                do! File.WriteAllTextAsync(targetFileName,content)
+                do! File.WriteAllTextAsync(targetFileName,content,Encoding.UTF8)
 
             })
         .Subscribe({
