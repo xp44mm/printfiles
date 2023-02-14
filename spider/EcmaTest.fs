@@ -45,7 +45,7 @@ type EcmaTest(output: ITestOutputHelper) =
 
         let nodes =
             text
-            |> Parser.parseDoc
+            |> HtmldocCompiler.compile
             |> snd
             |> List.map HtmlCharRefs.unescapseNode
 

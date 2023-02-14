@@ -21,11 +21,19 @@ type HtmlToTextTest(output: ITestOutputHelper) =
             |> List.append <| [""]
             |> String.concat "\r\n"
         content
+
+
+
+
     [<Fact>] // (Skip="done!")
     member this.``封神演义`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
+    [<Fact>] // (Skip="done!")
+    member this.``西遊記`` () =
+        let subfolder = MethodBase.GetCurrentMethod().Name
+        HtmlOps.writeToFiles output subfolder "txt" getContent
 
     [<Fact>] // (Skip="done!")
     member this.``三國演義`` () =

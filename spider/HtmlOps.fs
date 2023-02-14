@@ -71,7 +71,11 @@ open System.IO
 open System.Text
 
 open System.Threading.Tasks
+open System.Reactive
+open System.Reactive.Observable.Aliases
 open System.Reactive.Linq
+
+
 open FSharp.Idioms
 
 let writeToFiles (output: ITestOutputHelper) subfolder extname getContent =
@@ -82,11 +86,11 @@ let writeToFiles (output: ITestOutputHelper) subfolder extname getContent =
     Directory.GetFiles(target)
     |> Array.iter(File.Delete)
 
-    let tcs = TaskCompletionSource<unit>()
+    let tcs = TaskCompletionSource()
     Directory
         .GetFiles(source)
         .ToObservable()
-        .SelectMany(fun file ->
+        .FlatMap(fun file ->
             task {
                 let basename = Path.GetFileNameWithoutExtension(file)
                 let! text = File.ReadAllTextAsync(file)
@@ -106,6 +110,5 @@ let writeToFiles (output: ITestOutputHelper) subfolder extname getContent =
                 member this.OnCompleted() = 
                     output.WriteLine("done!")
                     tcs.SetResult()
-            })
-    |> ignore
+        }) |> ignore
     tcs.Task
