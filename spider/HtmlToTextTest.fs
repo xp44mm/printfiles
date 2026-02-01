@@ -13,7 +13,7 @@ type HtmlToTextTest(output: ITestOutputHelper) =
         let nodes = 
             text
             |> HtmlUtils.parseDoc
-            |> snd
+            //|> snd
 
         let content =
             nodes
@@ -22,61 +22,80 @@ type HtmlToTextTest(output: ITestOutputHelper) =
             |> String.concat "\r\n"
         content
 
-
-
-
-    [<Fact>] // (Skip="done!")
-    member this.``封神演义`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``01-封神演义`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``西遊記`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``02-西遊記`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``三國演義`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``03-三國演義`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``水滸傳`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``04-水滸傳`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``紅樓夢`` () =
+    [<Fact
+    // (Skip="done!")
+    >] 
+    member this.``05-紅樓夢`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``儒林外史`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``06-儒林外史`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``喻世明言`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``07-喻世明言`` () =
+        //let subfolder = MethodBase.GetCurrentMethod().Name
+        HtmlOps.writeToFiles output "喻世明言" "txt" getContent
+
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``08-警世通言`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``警世通言`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``09-醒世恒言`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``醒世恒言`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``10-初刻拍案惊奇`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 
-    [<Fact>] // (Skip="done!")
-    member this.``初刻拍案惊奇`` () =
-        let subfolder = MethodBase.GetCurrentMethod().Name
-        HtmlOps.writeToFiles output subfolder "txt" getContent
-
-    [<Fact>] // (Skip="done!")
-    member this.``二刻拍案惊奇`` () =
+    [<Fact
+     // (Skip="done!")
+    >]
+    member this.``11-二刻拍案惊奇`` () =
         let subfolder = MethodBase.GetCurrentMethod().Name
         HtmlOps.writeToFiles output subfolder "txt" getContent
 

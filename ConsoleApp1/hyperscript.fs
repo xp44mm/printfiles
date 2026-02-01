@@ -9,13 +9,13 @@ let main () =
     let path = Path.Combine(dir,"tags.js")
 
     let code () =
-        let exports =
-            gentags.tagnames()
-            |> Array.map(fun tag -> codetemplate.Replace("div",tag))
+        //let exports =
+        //    gentags.tagnames()
+        //    |> Array.map(fun tag -> codetemplate.Replace("div",tag))
         [
             "import { hyperscript } from './hyperscript'"
             ""
-            yield! exports
+            //yield! exports
         ]
         |> String.concat "\r\n"
     

@@ -17,7 +17,7 @@ type FileVersion(folder,filename) =
                 filename
         Path.Combine(folder,filename)
 
-    member this.writeFile(version, text) =
+    member this.writeFile(version, text:string) =
         let path = this.targetPath(version)
         //let path = Path.Combine(folder,tgt)
         File.Delete path

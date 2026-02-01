@@ -5,12 +5,12 @@ open Xunit.Abstractions
 
 open System
 open System.IO
-open FSharp.Literals
+open FSharp.Idioms.Literal
 
 type IEnumeratorTest(output: ITestOutputHelper) =
     let show res = 
         res
-        |> Literal.stringify
+        |> stringify
         |> output.WriteLine
 
     [<Fact>]

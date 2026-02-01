@@ -95,7 +95,7 @@ let getfs text =
 
     text
 
-let writeFile appendix text =
+let writeFile appendix (text:string) =
     let tgt = filename.Replace(".md",appendix + ".md")
     let path = (Path.Combine(folder,tgt))
     File.Delete path

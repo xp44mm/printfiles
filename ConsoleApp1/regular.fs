@@ -133,7 +133,7 @@ let folder = @"D:\编程书籍\F#"
 let readFile filename =
     File.ReadAllText(Path.Combine(folder,filename))
 
-let writeFile (filename:string) appendix text =
+let writeFile (filename:string) appendix (text:string) =
     let tgt = filename.Replace(".md",appendix + ".md")
     let path = (Path.Combine(folder,tgt))
     File.Delete path

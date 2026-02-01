@@ -52,7 +52,7 @@ let renderPara = function
 let normalize name text =
     text
     |> HtmlUtils.parseDoc
-    |> snd
+    //|> snd
     |> List.collect pickParagraph
     |> List.filter (filterNode name)
     |> List.filter (filterNode "校對語譯：luo")
@@ -94,7 +94,7 @@ let writeToFiles (output: ITestOutputHelper) subfolder extname getContent =
             task {
                 let basename = Path.GetFileNameWithoutExtension(file)
                 let! text = File.ReadAllTextAsync(file)
-                let content = getContent text
+                let content:string = getContent text
                 //return nodes
                 let targetFileName = 
                     basename + "." + extname

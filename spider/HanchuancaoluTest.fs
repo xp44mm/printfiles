@@ -12,8 +12,8 @@ type HanchuancaoluTest(output: ITestOutputHelper) =
         let nodes = HtmlOps.normalize subfolder text
         let content =
             nodes
-            |> List.map HtmlUtils.stringifyNode
-            |> String.concat "\r\n"
+            |> HtmlUtils.stringifyDoc
+            //|> String.concat "\r\n"
         content
 
     [<Fact(Skip="done!")>]

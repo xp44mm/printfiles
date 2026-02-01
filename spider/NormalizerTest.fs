@@ -18,8 +18,8 @@ type NormalizerTest(output: ITestOutputHelper) =
                 HtmlOps.normalize subfolder text
             let content =
                 nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
+                |> HtmlUtils.stringifyDoc
+                //|> String.concat "\r\n"
 
             content
 
@@ -31,7 +31,8 @@ type NormalizerTest(output: ITestOutputHelper) =
         let getContent (text:string) =
             let nodes = 
                 text
-                |> Line.splitLines
+                |> Line.splitToLines
+                |> Seq.indexed
                 |> Seq.choose(fun (i, line:string) ->
                     match line.Trim() with
                     | "" -> None
@@ -42,8 +43,9 @@ type NormalizerTest(output: ITestOutputHelper) =
         
             let content =
                 nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
+                |> List.ofSeq
+                |> HtmlUtils.stringifyDoc
+                //|> String.concat "\r\n"
         
             content
         HtmlOps.writeToFiles output subfolder "html" getContent
@@ -53,7 +55,7 @@ type NormalizerTest(output: ITestOutputHelper) =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 
-                match text |> HtmlUtils.parseDoc |> snd with
+                match text |> HtmlUtils.parseDoc with //  |> snd
                 | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
                     let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
                     h::nodes
@@ -61,8 +63,8 @@ type NormalizerTest(output: ITestOutputHelper) =
 
             let content =
                 nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
+                |> HtmlUtils.stringifyDoc
+                //|> String.concat "\r\n"
         
             content
         HtmlOps.writeToFiles output subfolder "html" getContent
@@ -75,12 +77,12 @@ type NormalizerTest(output: ITestOutputHelper) =
             let nodes = 
                 text
                 |> HtmlUtils.parseDoc
-                |> snd
+                //|> snd
 
             let content =
                 nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
+                |> HtmlUtils.stringifyDoc
+                //|> String.concat "\r\n"
 
             content
 
@@ -93,7 +95,7 @@ type NormalizerTest(output: ITestOutputHelper) =
             let nodes = 
                 text
                 |> HtmlUtils.parseDoc
-                |> snd
+                //|> snd
                 |> List.collect HtmlOps.pickParagraph
                 |> List.map(function
                     | HtmlElement(nm,attrs,children) ->
@@ -104,8 +106,8 @@ type NormalizerTest(output: ITestOutputHelper) =
 
             let content =
                 nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
+                |> HtmlUtils.stringifyDoc
+                //|> String.concat "\r\n"
         
             content
         HtmlOps.writeToFiles output subfolder "html" getContent
@@ -115,7 +117,7 @@ type NormalizerTest(output: ITestOutputHelper) =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 
-                match text |> HtmlUtils.parseDoc |> snd with
+                match text |> HtmlUtils.parseDoc with
                 | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
                     let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
                     h::nodes
@@ -123,8 +125,8 @@ type NormalizerTest(output: ITestOutputHelper) =
 
             let content =
                 nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
+                |> HtmlUtils.stringifyDoc
+                //|> String.concat "\r\n"
         
             content
         HtmlOps.writeToFiles output subfolder "html" getContent
@@ -134,7 +136,7 @@ type NormalizerTest(output: ITestOutputHelper) =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 
-                match text |> HtmlUtils.parseDoc |> snd with
+                match text |> HtmlUtils.parseDoc with
                 | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
                     let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
                     h::nodes
@@ -142,8 +144,8 @@ type NormalizerTest(output: ITestOutputHelper) =
 
             let content =
                 nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
+                |> HtmlUtils.stringifyDoc
+                //|> String.concat "\r\n"
         
             content
         HtmlOps.writeToFiles output subfolder "html" getContent
@@ -153,7 +155,7 @@ type NormalizerTest(output: ITestOutputHelper) =
         let subfolder = MethodBase.GetCurrentMethod().Name
         let getContent (text:string) =
             let nodes = 
-                match text |> HtmlUtils.parseDoc |> snd with
+                match text |> HtmlUtils.parseDoc with
                 | HtmlElement(_,_,[HtmlText a])::HtmlElement(_,_,[HtmlText b])::nodes ->
                     let h = HtmlElement("h2",[],[HtmlText $"{a}：{b}"])
                     h::nodes
@@ -161,8 +163,8 @@ type NormalizerTest(output: ITestOutputHelper) =
 
             let content =
                 nodes
-                |> Seq.map HtmlUtils.stringifyNode
-                |> String.concat "\r\n"
+                |> HtmlUtils.stringifyDoc
+                //|> String.concat "\r\n"
         
             content
         HtmlOps.writeToFiles output subfolder "html" getContent

@@ -4,12 +4,12 @@ open Xunit
 open Xunit.Abstractions
 
 open System.Reflection
+open System.IO
 open System.Text
 open System.Text.RegularExpressions
 
 open FSharp.HTML
 open FSharp.Idioms
-open System.IO
 
 type EcmaTest(output: ITestOutputHelper) =
 
@@ -45,9 +45,7 @@ type EcmaTest(output: ITestOutputHelper) =
 
         let nodes =
             text
-            |> HtmldocCompiler.compile
-            |> snd
-            |> List.map HtmlCharRefs.unescapseNode
+            |> HtmlUtils.parseDoc
 
         let clauses =
             nodes
